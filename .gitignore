@@ -1,6 +1,7 @@
 # VS folder
 .vs/
 *.sln
+*.pyproj
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
