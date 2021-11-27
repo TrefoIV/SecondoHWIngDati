@@ -2,7 +2,7 @@ import scrapy
 import json
 
 class ToScrapeSpiderXPath(scrapy.Spider):
-    name = 'professori'
+    name = 'docenti'
     f = open('nomi.json')
     data = json.load(f)
     start_urls = []
@@ -12,8 +12,8 @@ class ToScrapeSpiderXPath(scrapy.Spider):
 
     def parse(self, response):
         yield scrapy.Request(response.urljoin('roles/PO-PA-RU-SD-RM-RD/'))
-        for professori in response.xpath('//div[@class="entry-content"]/ul/li'):
+        for docenti in response.xpath('//div[@class="entry-content"]/ul/li'):
             yield {
-                'nome': professori.xpath('./a/text()').extract_first(),
-                'link': professori.xpath('./a/@href').extract_first(),
+                'nome': docenti.xpath('./a/text()').extract_first(),
+                'link': docenti.xpath('./a/@href').extract_first(),
             }
