@@ -11,10 +11,11 @@ class ToScrapeSpiderXPath(scrapy.Spider):
     print(start_urls)
 
     def parse(self, response):
-        for docente in response.xpath('//div[@class="boxPersonaDetailsWrap"]/table/tbody'):
-            yield {
-                'qualifica': docente.xpath('./tr[1]/td[2]/text()').extract_first(),
-                'SSD': docente.xpath('./tr[2]/td[2]/text()').extract_first(),
-                'email' : docente.xpath('./tr[5]/td[2]/text()').extract_first(),
-                #'afferenza' : docente.xpath('./td[contains(.,"Struttura/Afferenza")/following-sibling::td[1]/text()').extract_first(),
+        nome = response.xpath('//*[@id="main"]/h1/text()')
+        caratteristiche = response.xpath('//div[@class="boxPersonaDetailsWrap"]/table/tbody/tr/td')
+        yield {
+            'nome' : nome.extract_first(),
+            'qualifica': caratteristiche.xpath('./strong[contains(.,"Qualifica")]/ancestor-or-self::td/following-sibling::td/text()').extract_first(),
+            'SSD': caratteristiche.xpath('./strong[contains(.,"Settore Scientifico Disciplinare")]/ancestor-or-self::td/following-sibling::td/text()').extract_first(),
+            'email' : caratteristiche.xpath('.//strong[contains(.,"Email")]/ancestor-or-self::td/following-sibling::td/text()').extract_first(),
             }
