@@ -7,11 +7,22 @@ class QuotesSpider(scrapy.Spider):
 
     def start_requests(self):
         urls = [
-            'http://quotes.toscrape.com/page/1/',
-            'http://quotes.toscrape.com/page/2/',
+            'https://en.wikipedia.org/wiki/Portal:Companies/Index_by_industry'
         ]
         for url in urls:
-            yield scrapy.Request(url=url, callback=self.parse)
+            yield scrapy.Request(url=url, callback=self.parseCompaniesIndex)
+
+    def parseCompaniesIndex(self, response):
+        for span in response.xpath("//span[@class='flagicon']"):
+            industrial_sector = span.xpath("normalize-space(../../div/descendant::b/a/text())").get()
+            if industrial_sector == "":
+                industrial_sector = span.xpath("normalize-space(../../p/b/a/text())").get()
+            print("===============================================================")
+            print(span.xpath("following"))
+            print("================================================================")
+            for porco in span.xpath("following"):
+                print("Ciao")
+                print(porco)
 
     def parse(self, response):
         page = response.url.split("/")[-2]

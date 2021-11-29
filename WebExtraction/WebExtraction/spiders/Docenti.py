@@ -3,11 +3,14 @@ import json
 
 class ToScrapeSpiderXPath(scrapy.Spider):
     name = 'docenti'
-    f = open('nomi.json')
-    data = json.load(f)
-    start_urls = []
-    for i in data:
-        start_urls.append(i['link'])
+
+    def start_requests(self):
+        f = open('nomi.json')
+        data = json.load(f)
+        self.start_urls = []
+        for i in data:
+            start_urls.append(i['link'])
+        return super().start_requests()
 
 
     def parse(self, response):

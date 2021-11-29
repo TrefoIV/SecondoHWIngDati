@@ -3,12 +3,14 @@ import json
 
 class ToScrapeSpiderXPath(scrapy.Spider):
     name = 'dettagliDocenti'
-    f = open('docenti.json')
-    data = json.load(f)
-    start_urls = []
-    for i in data:
-        start_urls.append('https://www.uniroma3.it' + i['link'])
-    print(start_urls)
+    def start_requests(self):
+        f = open('docenti.json')
+        data = json.load(f)
+        self.start_urls = []
+        for i in data:
+            start_urls.append('https://www.uniroma3.it' + i['link'])
+        print(start_urls)
+        return super().start_requests()
 
     def parse(self, response):
         nome = response.xpath('//*[@id="main"]/h1/text()')
