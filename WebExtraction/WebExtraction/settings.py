@@ -12,6 +12,9 @@ BOT_NAME = 'WebExtraction'
 SPIDER_MODULES = ['WebExtraction.spiders']
 NEWSPIDER_MODULE = 'WebExtraction.spiders'
 
+#Disable Log
+LOG_ENABLED = False
+
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'WebExtraction (+http://www.yourdomain.com)'
