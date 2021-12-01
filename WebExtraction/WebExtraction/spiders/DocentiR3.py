@@ -2,14 +2,14 @@ import scrapy
 import json
 
 class ToScrapeSpiderXPath(scrapy.Spider):
-    name = 'docenti'
+    name = 'docentiR3'
 
     def start_requests(self):
-        f = open('nomi.json')
+        f = open('dipartimentiFederico2.json')
         data = json.load(f)
         self.start_urls = []
         for i in data:
-            start_urls.append(i['link'])
+            self.start_urls.append(i['link'])
         return super().start_requests()
 
 

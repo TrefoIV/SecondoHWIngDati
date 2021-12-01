@@ -2,7 +2,7 @@ import scrapy
 import json
 
 class ToScrapeSpiderXPath(scrapy.Spider):
-    name = 'dipartimenti'
+    name = 'dipartimentiR3'
     def start_requests(self):
     
         self.start_urls = [
