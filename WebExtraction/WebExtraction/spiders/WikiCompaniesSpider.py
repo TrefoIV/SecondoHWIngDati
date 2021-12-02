@@ -67,12 +67,15 @@ class WikiCompaniesSpider(scrapy.Spider):
             stringa = text.get()
             stringa = self.clean(stringa)
             attr_value += stringa
+        
+        attr_value = attr_value.strip()
         return attr_value
 
     def clean(self, stringa):
-        stringa = normalize("NFKC", stringa )           #Trasforma eventuali caratteri speciali unicode contenuti nel testo trasformabili
-        stringa = re.sub("\\\\u.{4}", "", stringa)      #Togli strani caratteri unicode 
-        stringa = re.sub("\\\\.", "", stringa)          #Togli caratteri speciali di indentazione
+        stringa = stringa.strip()
+        stringa = stringa.replace("\n", "")
+        stringa = stringa.replace("\t", "")
+        stringa = stringa.replace("\r", "")
         stringa = re.sub("\[[1-9]*\]", "", stringa)     #Rimuove eventuali riferimenti a fonti di wikipedia
         return stringa
 
