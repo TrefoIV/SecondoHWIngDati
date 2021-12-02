@@ -5,7 +5,7 @@ class ToScrapeSpiderXPath(scrapy.Spider):
     name = 'docentiR3'
 
     def start_requests(self):
-        f = open('dipartimentiFederico2.json')
+        f = open('dipartimentiR3.json')
         data = json.load(f)
         self.start_urls = []
         for i in data:

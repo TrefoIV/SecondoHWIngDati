@@ -20,7 +20,7 @@ class ToScrapeSpiderXPath(scrapy.Spider):
         profProperty = {
             'nome' : response.xpath('//article/div/h1/text()').extract_first(),
             'ruolo' : response.xpath('//div[@class="txtParagrafo"]//div[1]/text()').extract_first(),
-            'dipartimento': response.xpath('//div[@class="txtParagrafo"]//div[2]/text()').extract_first(),
+            'dipartimento': response.xpath('//div[@class="txtParagrafo"]//div[2]/text()').get(),
             'email' : response.xpath('//div[@class="txtParagrafo"]//div[3]/a/text()').extract_first(),
             }
         
