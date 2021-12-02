@@ -29,7 +29,7 @@ class WikiCompaniesSpider(scrapy.Spider):
                 link = response.urljoin(hrefSelector.get())
                 self.totalCount += 1
                 yield scrapy.Request(url = link, callback = self.parseCompany, cb_kwargs = {"industrial_sector" : industrial_sector, "name" : name})
-       
+
 
     def parseCompany(self, response, industrial_sector, name):
         attributes = ["Founded", "Revenue", "Key people", "Headquarters", "Total assets", "Employees", "Number of employees", "Website", "Hubs"]
@@ -55,11 +55,8 @@ class WikiCompaniesSpider(scrapy.Spider):
 
 
             company_description[attr] = attr_value
-        allNULL = True
-        for attr in attributes:
-            if company_description[attr] is not None:
-                allNULL = False
-        if allNULL:
+
+        if all( map(lambda attr: company_description[attr] is None, attributes) ):
             self.allNullValueCount += 1
 
         yield company_description
