@@ -4,7 +4,9 @@ import json
 
 class QuotesSpider(scrapy.Spider):
     name = 'dettagliAziende'
-    total=0
+    total = 0
+    valNulli={"name":0,"code":0,"rank":0,"country":0,"marketcap":0,"competitor":0}
+
 
     def start_requests(self):
         f = open('aziende.json', encoding="utf8")
@@ -30,7 +32,10 @@ class QuotesSpider(scrapy.Spider):
 
         for attributo in proprieta:
             if(proprieta[attributo]=="" or proprieta[attributo]==[]):
-                self.total+=1
+                self.total += 1
+                self.valNulli[attributo] += 1
 
     def closed(self, reason):
-        print("--- Valori nulli: ", self.total)
+        print("--- Valori nulli : ", self.total)
+        for attributo in self.valNulli.keys():
+            print("--- Valori nulli per", attributo, ":", self.valNulli[attributo])
