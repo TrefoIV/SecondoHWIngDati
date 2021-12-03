@@ -30,9 +30,10 @@ class ToScrapeSpiderXPath(scrapy.Spider):
         for corso in response.xpath('//main[@id="main"]/h2[1]/following-sibling::strong/text()'):
             profProperty['corsi'].append(corso.get())
 
-        ##profPropertyJson = json.dump(profProperty)
-        with open('dettagliDocentiR3.json', 'a') as fp:
-            json.dump(profProperty, fp)
-            fp.write(',\n')
-        #print(profProperty)
-        #yield({profProperty})
+        yield profProperty
+        ###profPropertyJson = json.dump(profProperty)
+        #with open('dettagliDocentiR3.json', 'a') as fp:
+        #    json.dump(profProperty, fp)
+        #    fp.write(',\n')
+        ##print(profProperty)
+        ##yield({profProperty})
