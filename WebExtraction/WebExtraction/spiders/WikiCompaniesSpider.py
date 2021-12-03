@@ -5,6 +5,9 @@ import re
 
 class WikiCompaniesSpider(scrapy.Spider):
     name = "wikiCompanies"
+    nullAttributeCount = {}
+    allNullValueCount = 0
+    totalCount = 0
 
     def start_requests(self):
         urls = [
@@ -24,8 +27,9 @@ class WikiCompaniesSpider(scrapy.Spider):
             for index, hrefSelector in enumerate(span.xpath("following::small[1]/a/@href")):
                 name = span.xpath(f"following::small[1]/a[{index+1}]/text()").get()
                 link = response.urljoin(hrefSelector.get())
+                self.totalCount += 1
                 yield scrapy.Request(url = link, callback = self.parseCompany, cb_kwargs = {"industrial_sector" : industrial_sector, "name" : name})
-            
+
 
     def parseCompany(self, response, industrial_sector, name):
         attributes = ["Founded", "Revenue", "Key people", "Headquarters", "Total assets", "Employees", "Number of employees", "Website", "Hubs"]
@@ -47,18 +51,41 @@ class WikiCompaniesSpider(scrapy.Spider):
 
             if attr_value == "" or attr_value == []:    #L'attributo non ha valori, metto un valore nullo
                 attr_value = None
-            
+                self.nullAttributeCount[attr] =  self.nullAttributeCount.get(attr, 0) + 1
+
+
             company_description[attr] = attr_value
+
+        if all( map(lambda attr: company_description[attr] is None, attributes) ):
+            self.allNullValueCount += 1
+
         yield company_description
 
     def buildAttribute(self, node):
         attr_value = ""
         for text in node.xpath(f"descendant-or-self::*//text()"):
             stringa = text.get()
-            stringa = normalize("NFKC", stringa )    #Trasforma eventuali caratteri speciali unicode contenuti nel testo
-            stringa = re.sub("\[[1-9]*\]", "", stringa) #Rimuove eventuali riferimenti a fonti di wikipedia
+            stringa = self.clean(stringa)
             attr_value += stringa
+        
+        attr_value = attr_value.strip()
         return attr_value
+
+    def clean(self, stringa):
+        stringa = stringa.strip()
+        stringa = stringa.replace("\n", "")
+        stringa = stringa.replace("\t", "")
+        stringa = stringa.replace("\r", "")
+        stringa = re.sub("\[[1-9]*\]", "", stringa)     #Rimuove eventuali riferimenti a fonti di wikipedia
+        return stringa
+
+    def closed(self, reason):
+        print(self.totalCount)
+        print("=================================")
+        print(self.allNullValueCount)
+        print("================================")
+        for attr in self.nullAttributeCount:
+            print(f"{attr} : {self.nullAttributeCount[attr]} null values; {self.nullAttributeCount[attr]/self.totalCount * 100}%")
 
     def parse(self, response):
         page = response.url.split("/")[-2]

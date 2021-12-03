@@ -15,6 +15,10 @@ NEWSPIDER_MODULE = 'WebExtraction.spiders'
 #Disable Log
 LOG_ENABLED = False
 
+#Codifica JSON
+FEED = 'json'
+FEED_EXPORT_ENCODING = 'utf-8'
+
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'WebExtraction (+http://www.yourdomain.com)'
