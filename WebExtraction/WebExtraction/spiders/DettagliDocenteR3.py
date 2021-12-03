@@ -4,7 +4,7 @@ import json
 class ToScrapeSpiderXPath(scrapy.Spider):
     name = 'dettagliDocentiR3'
     def start_requests(self):
-        f = open('docenti.json')
+        f = open('docentiR3.json')
         data = json.load(f)
         self.start_urls = []
         for i in data:
@@ -31,8 +31,8 @@ class ToScrapeSpiderXPath(scrapy.Spider):
             profProperty['corsi'].append(corso.get())
 
         ##profPropertyJson = json.dump(profProperty)
-        with open('dettagliDocenti2.json', 'a') as fp:
+        with open('dettagliDocentiR3.json', 'a') as fp:
             json.dump(profProperty, fp)
-            fp.write('\n')
+            fp.write(',\n')
         #print(profProperty)
         #yield({profProperty})
