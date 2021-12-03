@@ -2,10 +2,13 @@ import scrapy
 import json
 
 class ToScrapeSpiderXPath(scrapy.Spider):
-    name = 'dipartimenti'
-    start_urls = [
-        'https://www.uniroma3.it/en/about-us/departments-and-schools/departments/',
-    ]
+    name = 'dipartimentiR3'
+    def start_requests(self):
+    
+        self.start_urls = [
+            'https://www.uniroma3.it/en/about-us/departments-and-schools/departments/',
+        ]
+        return super().start_requests()
 
     def parse(self, response):
         for dipartimento in response.xpath('//div[@class="list-subpages-container"]/article'):

@@ -1,2 +1,11 @@
-https://en.wikipedia.org/wiki/Portal:Companies/Index_by_industry
-https://www.forbes.com/lists/global2000/#235d06d85ac0
+Aziende:
+- https://en.wikipedia.org/wiki/Portal:Companies/Index_by_industry
+- https://www.forbes.com/lists/global2000/#235d06d85ac0
+
+Professionisti:
+- Docenti Roma 3:
+	- https://www.uniroma3.it/ateneo/dipartimenti-e-scuole/dipartimenti/
+	- https://www.uniroma3.it/ateneo/dipartimenti-e-scuole/dipartimenti/******/
+	- https://www.uniroma3.it/ateneo/dipartimenti-e-scuole/dipartimenti/******/roles/PO-PA-RU-SD-RM-RD/
+- Docenti Bocconi:
+	- https://didattica.unibocconi.it/docenti/proff_ord_alfa.php
