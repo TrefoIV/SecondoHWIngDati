@@ -1,7 +1,7 @@
 Aziende:
 - https://en.wikipedia.org/wiki/Portal:Companies/Index_by_industry
 - https://www.forbes.com/lists/global2000/#235d06d85ac0
-
+- https://www.wsj.com/market-data/quotes/company-list
 Professionisti:
 - Docenti Roma 3:
 	- https://www.uniroma3.it/ateneo/dipartimenti-e-scuole/dipartimenti/

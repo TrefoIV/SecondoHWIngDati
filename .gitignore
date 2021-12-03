@@ -6,8 +6,9 @@
 # Cose HTML
 *.html
 
-# json
+# formati file da non caricare
 *.json
+*.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
