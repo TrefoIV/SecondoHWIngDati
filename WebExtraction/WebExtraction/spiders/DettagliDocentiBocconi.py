@@ -19,14 +19,21 @@ class ToScrapeSpiderXPath(scrapy.Spider):
         #@style="margin-bottom:5px;"
         profProperty = {
             'nome' : response.xpath('//article/div/h1/text()').extract_first(),
-            'ruolo' : response.xpath('//div[@class="txtParagrafo"]//div[1]/text()').extract_first(),
-            'dipartimento': response.xpath('//div[@class="txtParagrafo"]//div[2]/text()').get(),
+            'qualifica' : response.xpath('//div[@class="txtParagrafo"]//div[1]/text()').extract_first(),
+            'dipartimento': response.xpath('//div[@class="txtParagrafo"]//div[2]/text()').extract(),
             'email' : response.xpath('//div[@class="txtParagrafo"]//div[3]/a/text()').extract_first(),
             }
         
-        profProperty['Insegnamenti a.a. 2021/2022'] = []
+        #profProperty['dipartimento'] = self.clean(profProperty['dipartimento'])
+        #print(profProperty['dipartimento'])
+        profProperty['dipartimento'] = ' '.join(profProperty['dipartimento'])
+        #print(profProperty['dipartimento'])
+        profProperty['dipartimento'] = self.clean(profProperty['dipartimento'])
+        #print(profProperty['dipartimento'])
+        
+        profProperty['corsi'] = []
         for corso in response.xpath('//div[@class="txtParagrafo"]/span/text()'):
-            profProperty['Insegnamenti a.a. 2021/2022'].append(corso.get())
+            profProperty['corsi'].append(corso.get())
 
         ##profPropertyJson = json.dump(profProperty)
         #with open('dettagliDocentiBocconi.json', 'a') as fp:
@@ -34,3 +41,11 @@ class ToScrapeSpiderXPath(scrapy.Spider):
         #    fp.write('\n')
         #print(profProperty)
         yield profProperty
+
+
+    def clean(self, stringa):
+        stringa = stringa.strip()
+        stringa = stringa.replace("'\r\n\t'", "")
+        stringa = stringa.replace("'\t'", "")
+        #stringa = re.sub("\[[1-9]*\]", "", stringa)     #Rimuove eventuali riferimenti a fonti di wikipedia
+        return stringa

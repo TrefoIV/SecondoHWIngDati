@@ -18,10 +18,11 @@ class ToScrapeSpiderXPath(scrapy.Spider):
         profProperty = {
             'nome' : nome.extract_first(),
             'qualifica': caratteristiche.xpath('./strong[contains(.,"Qualifica")]/ancestor-or-self::td/following-sibling::td/text()').extract_first(),
-            'SSD': caratteristiche.xpath('./strong[contains(.,"Settore Scientifico Disciplinare")]/ancestor-or-self::td/following-sibling::td/text()').extract_first(),
+            #'SSD': caratteristiche.xpath('./strong[contains(.,"Settore Scientifico Disciplinare")]/ancestor-or-self::td/following-sibling::td/text()').extract_first(),
+            'dipartimento' : caratteristiche.xpath('.//li/text()').extract_first(),
             'email' : caratteristiche.xpath('.//strong[contains(.,"Email")]/ancestor-or-self::td/following-sibling::td/text()').extract_first(),
-            'email' : caratteristiche.xpath('./strong[contains(.,"Email")]/ancestor-or-self::td/following-sibling::td/text()').extract_first(),
-            'link al curriculum' : caratteristiche.xpath('./a[contains(.,"Curriculum")]/@href').extract_first(),
+            #'email' : caratteristiche.xpath('./strong[contains(.,"Email")]/ancestor-or-self::td/following-sibling::td/text()').extract_first(),
+            #'link al curriculum' : caratteristiche.xpath('./a[contains(.,"Curriculum")]/@href').extract_first(),
             }
      
         
